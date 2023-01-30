@@ -1,21 +1,25 @@
-<h1 mat-dialog-title>Add Product</h1>
+<h1 mat-dialog-title>{{data.action | uppercase}} PRODUCT</h1>
 <div mat-dialog-content>
+    <!-- <pre>{{ serial_number.errors | json }}</pre> -->
     <div [formGroup]="productForm" fxLayout="row" fxLayout.sm="columns" fxLayoutAlign="space-around center" fxLayoutGap="5">
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput placeholder="Name" formControlName="name">
             <mat-error *ngIf="name.hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="name.hasError('pattern')">Name is not valid</mat-error>
+            <mat-error *ngIf="name.hasError('maxlength')">Maxlength 20</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Serial Number</mat-label>
             <input matInput placeholder="Serial Number" formControlName="serial_number">
             <mat-error *ngIf="serial_number.hasError('required')">Serial Number is required</mat-error>
+            <mat-error *ngIf="serial_number.hasError('pattern')">Serial number no valid</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Price</mat-label>
-            <input matInput placeholder="Price" formControlName="price">
+            <input matInput placeholder="Price" formControlName="price" (blur)="transformPrice($event)" [value]="formattedAmount">
             <mat-error *ngIf="price.hasError('required')">Price is required</mat-error>
         </mat-form-field>
     </div>

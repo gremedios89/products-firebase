@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 import { ProductsModel } from '../models/products.model';
 
 @Injectable({
@@ -15,12 +15,12 @@ export class ProductsService {
     return this.firestore.collection('products').snapshotChanges();
   }
 
-  addProduct(product: ProductsModel): Promise<any> {
-    return this.firestore.collection('products').add(product);
+  addProduct(product: ProductsModel): Observable<any> {
+    return from(this.firestore.collection('products').add(product));
   }
 
-  editProduct(product: ProductsModel): Promise<any> {
-    return this.firestore.collection('products').doc(product.id).update(product);
+  editProduct(product: ProductsModel): Observable<any> {
+    return from(this.firestore.collection('products').doc(product.id).update(product));
   }
 
   deleteProduct(id: string): Promise<any> {

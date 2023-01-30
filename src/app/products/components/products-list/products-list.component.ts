@@ -55,6 +55,8 @@ export class ProductsListComponent implements OnInit {
 
   openDialog(action: string, product: any): void {
     const dialogRef = this.dialog.open(AddProductComponent, {
+      width: '55%',
+      disableClose: true,
       data: {
         product: product,
         action: action
@@ -63,21 +65,22 @@ export class ProductsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp.action === 'add') {
-        this.productsService.addProduct(resp.product).then(() => {
+        this.productsService.addProduct(resp.product).subscribe((resp: any) => {
           this._snackBar.open('Product add successfuly');
         })
-        .catch(error => {
+        error: (error: any) => {
           this._snackBar.open(error);
-        });
+        }
       }
       if (resp.action === 'edit') {
         if (resp.product.id) {
-          this.productsService.editProduct(resp.product).then(() => {
+          this.productsService.editProduct(resp.product).subscribe((resp: any) => {
             this._snackBar.open('Product edited successfuly');
-          })
-          .catch(error => {
+            }
+          )
+          error: (error: any) => {
             this._snackBar.open(error);
-          });
+          }
         }
       }
     });

@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Delete product</h1>
 <div mat-dialog-content>
-    <h4>Would you like to delete this products?</h4>
+    <h4>Would you like to delete this product?</h4>
     <mat-label>Name: {{ data.name }}</mat-label> <br>
     <mat-label>Serial number: {{ data.serial_number }}</mat-label> <br>
-    <mat-label>Price: {{ data.price | currency }}</mat-label>
+    <mat-label>Price: {{ data.price }}</mat-label>
 </div>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close cdkFocusInitial (click)="delete(data.id)">Delete</button>
+    <button mat-button mat-dialog-close><mat-icon color="primary">cancel</mat-icon> Cancel</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="delete(data.id)"><mat-icon color="warn">delete</mat-icon> Delete</button>
 </div>
